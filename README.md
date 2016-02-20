@@ -1,7 +1,7 @@
 Brew Cask Outdated
 ==================
 
-by Benjamin Gandon © 2015
+by Benjamin Gandon © 2015-2016
 
 
 Overview

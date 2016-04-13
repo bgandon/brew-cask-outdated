@@ -54,3 +54,7 @@ License
 # indent-tabs-mode: nil
 # End:
 -->
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bgandon/brew-cask-outdated/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+

@@ -1,4 +1,4 @@
-Brew Cask Outdated
+Brew Cask Outdated  [![.](http://gaproxy.gstack.io/UA-68445280-1/github.com/bgandon/brew-cask-outdated/readme?pixel)](https://github.com/gstackio/ga-beacon)
 ==================
 
 by Benjamin Gandon © 2015-2016

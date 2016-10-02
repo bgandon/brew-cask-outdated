@@ -28,5 +28,4 @@ for formula in $(brew cask list | grep -Fv '(!)'); do
     if [ "$new_ver" != "$cur_ver" ]; then
         echo "$formula ($cur_ver < $new_ver)"
     fi
-    #echo "$new_ver" | awk -F ': ' '{print $1 " ('"$(ls $CASKROOM/$formula)"' < " $2 ")"}'
 done

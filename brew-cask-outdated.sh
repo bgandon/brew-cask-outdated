@@ -19,11 +19,14 @@ if [ -n "$HOMEBREW_CASK_OPTS" ]; then
 fi
 
 for formula in $(brew cask list | grep -Fv '(!)'); do
-    new_ver=$(brew cask info $formula \
-        | grep -B3 'Not installed' \
-        | head -n 1)
-    if [ -z "$new_ver" ]; then
-        continue
+    info=$(brew cask info $formula | head -n 3)
+    new_ver=$(echo "$info" | head -n 1 | cut -d' ' -f 2)
+    cur_ver=$(echo "$info" \
+        | grep '^/usr/local/Caskroom' \
+        | cut -d' ' -f 1 \
+        | cut -d/ -f 6)
+    if [ "$new_ver" != "$cur_ver" ]; then
+        echo "$formula ($cur_ver < $new_ver)"
     fi
-    echo "$new_ver" | awk -F ': ' '{print $1 " ('"$(ls $CASKROOM/$formula)"' < " $2 ")"}'
+    #echo "$new_ver" | awk -F ': ' '{print $1 " ('"$(ls $CASKROOM/$formula)"' < " $2 ")"}'
 done

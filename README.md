@@ -25,10 +25,8 @@ Install
 
 Run these commands in a terminal:
 
-    mkdir ~/bin
-    wget -O ~/bin/brew-cask-outdated https://raw.github.com/bgandon/brew-cask-outdated/blob/master/brew-cask-outdated.sh
-    chmod +x ~/bin/brew-cask-outdated
-    echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
+    curl https://raw.githubusercontent.com/bgandon/brew-cask-outdated/master/brew-cask-outdated.sh > /usr/local/bin/brew-cask-outdated
+    chmod +x /usr/local/bin/brew-cask-outdated
 
 If you know what it's about, please check that it's correct for your setup. If
 you don't, it doesn't matter. It shall work anyway.

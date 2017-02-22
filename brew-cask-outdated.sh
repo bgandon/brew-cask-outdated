@@ -19,13 +19,17 @@ if [ -n "$HOMEBREW_CASK_OPTS" ]; then
 fi
 
 for formula in $(brew cask list | grep -Fv '(!)'); do
-    info=$(brew cask info $formula | head -n 3)
+    info=$(brew cask info $formula | sed -ne '1,/^From:/p')
     new_ver=$(echo "$info" | head -n 1 | cut -d' ' -f 2)
-    cur_ver=$(echo "$info" \
+    cur_vers=$(echo "$info" \
         | grep '^/usr/local/Caskroom' \
         | cut -d' ' -f 1 \
         | cut -d/ -f 6)
-    if [ "$new_ver" != "$cur_ver" ]; then
-        echo "$formula ($cur_ver) < $new_ver"
+    latest_cur_ver=$(echo "$cur_vers" \
+        | tail -n 1)
+    cur_vers_list=$(echo "$cur_vers" \
+        | tr '\n' ' ' | sed -e 's/ /, /g; s/, $//')
+    if [ "$new_ver" != "$latest_cur_ver" ]; then
+        echo "$formula ($cur_vers_list) < $new_ver"
     fi
 done

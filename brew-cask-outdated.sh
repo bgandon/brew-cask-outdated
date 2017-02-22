@@ -26,6 +26,6 @@ for formula in $(brew cask list | grep -Fv '(!)'); do
         | cut -d' ' -f 1 \
         | cut -d/ -f 6)
     if [ "$new_ver" != "$cur_ver" ]; then
-        echo "$formula ($cur_ver < $new_ver)"
+        echo "$formula ($cur_ver) < $new_ver"
     fi
 done

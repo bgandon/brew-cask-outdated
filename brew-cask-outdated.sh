@@ -7,12 +7,12 @@
 # Resolve the CASKROOM value, supporting its customization
 # with the HOMEBREW_CASK_OPTS environment variable
 CASKROOM=/opt/homebrew-cask/Caskroom
-if [ -n "$HOMEBREW_CASK_OPTS" ]; then
-    opts=($HOMEBREW_CASK_OPTS)
+if [[ -n ${HOMEBREW_CASK_OPTS} ]]; then
+    opts=( "${HOMEBREW_CASK_OPTS}" )
     for opt in "${opts[@]}"; do
-        room=$(echo "$opt" | sed -ne 's/^--caskroom=//p')
-        if [ -n "$room" ]; then
-            CASKROOM=$room
+        room=$(sed -ne 's/^--caskroom=//p' <<< "${opt}")
+        if [[ -n ${room} ]]; then
+            CASKROOM="${room}"
             break
         fi
     done
@@ -20,15 +20,12 @@ fi
 
 for formula in $(brew list --cask); do
     info=$(brew info --cask "${formula}" | sed -ne '1,/^From:/p')
-    new_ver=$(echo "${info}" | head -n 1 | cut -d' ' -f 2)
-    cur_vers=$(echo "${info}" \
-        | grep '^/usr/local/Caskroom' \
+    new_ver=$(head -n 1 <<< "${info}" | cut -d' ' -f 3)
+    cur_vers=$(grep '^/usr/local/Caskroom' <<< "${info}" \
         | cut -d' ' -f 1 \
         | cut -d/ -f 6)
-    latest_cur_ver=$(echo "${cur_vers}" \
-        | tail -n 1)
-    cur_vers_list=$(echo "${cur_vers}" \
-        | tr '\n' ' ' | sed -e 's/ /, /g; s/, $//')
+    latest_cur_ver=$(tail -n 1 <<< "${cur_vers}")
+    cur_vers_list=$(tr '\n' ' ' <<< "${cur_vers}" | sed -e 's/ /, /g; s/, $//')
     if [[ ${new_ver} != ${latest_cur_ver} ]]; then
         echo "${formula} (${cur_vers_list}) < ${new_ver}"
     fi

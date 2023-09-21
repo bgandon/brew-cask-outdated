@@ -21,7 +21,7 @@ fi
 for formula in $(brew list --cask); do
     info=$(brew info --cask "${formula}" | sed -ne '1,/^From:/p')
     new_ver=$(head -n 1 <<< "${info}" | cut -d' ' -f 3)
-    cur_vers=$(grep '^/usr/local/Caskroom' <<< "${info}" \
+    cur_vers=$(grep '^/opt/homebrew' <<< "${info}" \
         | cut -d' ' -f 1 \
         | cut -d/ -f 6)
     latest_cur_ver=$(tail -n 1 <<< "${cur_vers}")
